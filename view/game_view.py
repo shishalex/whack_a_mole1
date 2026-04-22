@@ -41,10 +41,10 @@ class GameView:
     #       - disegna un cerchio per ogni buco usando il colore appropriato in base allo stato
     #       - aggiorna la finestra di display (pygame.display.flip())
     def __init__(self, screen):
-        self.__screen = screen
+        self.screen = screen
 
     def draw(self, model):
-        self.__screen.fill(COLOR_BG)
+        self.screen.fill(COLOR_BG)
         for hole in model.holes:
             if hole.is_active:
                 color = COLOR_HOLE_ON

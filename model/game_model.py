@@ -3,9 +3,9 @@ from random import randint
 class Hole:
     """Un singolo buco della griglia."""
 
-    def __init__(self, hole_index: None|int):
+    def __init__(self, hole_index: int):
         self.is_active = False
-        self.hole_index = None
+        self.hole_index = hole_index
 
     def toggle_active(self):
         self.is_active = not self.is_active
