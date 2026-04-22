@@ -18,10 +18,19 @@ COLOR_HOLE_ON  = (230, 140, 40)
 
 def hole_center(index):
     """Restituisce le coordinate (x, y) del centro del buco i-esimo."""
-    # TODO: calcolare la riga e la colonna corrispondenti all'indice
-    # TODO: calcolare le dimensioni di una singola cella (larghezza e altezza) escludendo i margini
-    # TODO: calcolare e restituire le coordinate del centro (cx, cy) per il buco
-    pass
+
+    row = index // GRID_ROWS
+    col = index % GRID_COLS
+
+    width = WINDOW_WIDTH - 2 * GRID_MARGIN
+    height = WINDOW_HEIGHT - 2 * GRID_MARGIN
+    cell_width = width / GRID_ROWS
+    cell_height = height / GRID_COLS
+
+    cx = int(GRID_MARGIN + col * cell_width + cell_width / 2)
+    cy = int(GRID_MARGIN + row * cell_height + cell_height / 2)
+
+    return cx, cy
 
 
 class GameView:
@@ -31,4 +40,16 @@ class GameView:
     #       - riempie lo schermo con il colore di sfondo COLOR_BG
     #       - disegna un cerchio per ogni buco usando il colore appropriato in base allo stato
     #       - aggiorna la finestra di display (pygame.display.flip())
-    pass
+    def __init__(self, screen):
+        self.__screen = screen
+
+    def draw(self, model):
+        self.__screen.fill(COLOR_BG)
+        for hole in model.holes:
+            if hole.is_active:
+                color = COLOR_HOLE_ON
+            else:
+                color = COLOR_HOLE
+            cx, cy = hole_center(hole.hole_index)
+            pygame.draw.circle(self.screen, color, (cx, cy), HOLE_RADIUS)
+        pygame.display.flip()
